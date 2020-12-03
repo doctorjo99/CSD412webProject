@@ -6,104 +6,46 @@
 
 <h1>Movie Search Results</h1>
 
-<table class="table bg-dark text-white">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PosterPath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseYear)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GenreIds)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-    
-        <tr>
-            <div >
-                <td class="media">
+<div style="display: flex; flex-flow: row wrap;">
+        @foreach (var item in Model) {
+                <div>
                     @{
                         string path = "https://image.tmdb.org/t/p/w185/";
                         path = path + item.PosterPath;
                     }
-                    <p><img class="mr-3" src=@path alt=" @item.Title" /></p>
-                </td>
-                <td>
-                    <h5>
+                    <p class = "media"><img class="mr-3" src=@path alt="@item.Title" /></p>
+                    <button class="btn btn-danger mb-2">
+                        
                         @Html.DisplayFor(modelItem => item.Title)
-                    </h5>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseYear)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rating)
-                </td>
-                <td>
-                    @{
-                        var genres = item.GenreNames;
-                        foreach (var genre in genres)
+                        @Html.ActionLink("Details", "MovieInfo", null, new
                         {
-                            <p>@genre</p>
+                            @class = "btn btn-primary btn-large",
+                            id = item.Id,
+                            Title = item.Title,
+                            ReleaseYear = item.ReleaseYear,
+                            adult = item.Adult,
+                            description = item.Description,
+                            PosterPath = item.PosterPath,
+                            BackDropPath = item.BackDropPath,
+                            Rating = item.Rating,
+                            VideoLink = item.VideoLink,
+                            GenreIds = item.GenreIds,
+                            ActorsIds = item.ActorsIds,
+                            Director = item.Director,
+                            GenreNAmes = item.GenreNames
+                        })
+                    </button>
+                    <p>
+                        @{
+                            var genres = item.GenreNames;
+                            foreach (var genre in genres)
+                            {
+                                <p>genre </p>
+                            }
                         }
-                    }
-                </td>
-                <td>
-                    <div>
-                        @*<i class="fas fa-chevron-right fa-3x mb-2 text-white"></i>*@
-                        <button class="btn btn-danger mb-2">
-                            @Html.ActionLink("Details", "MovieInfo", null, new
-                       {
+                    </p>
+                    <p>@Html.DisplayFor(modelItem => item.Rating)</p>
 
-                           @class = "btn btn-primary btn-large",
-                           id = item.Id,
-                           Title = item.Title,
-                           ReleaseYear = item.ReleaseYear,
-                           adult = item.Adult,
-                           description = item.Description,
-                           PosterPath = item.PosterPath,
-                           BackDropPath = item.BackDropPath,
-                           Rating = item.Rating,
-                           VideoLink = item.VideoLink,
-                           GenreIds = item.GenreIds,
-                           ActorsIds = item.ActorsIds,
-                           Director = item.Director,
-                           GenreNAmes = item.GenreNames
-                       })
-                            <style>
-                                a {
-                                    color: white;
-                                    text-decoration: none;
-                                }
-                                    a:hover {
-                                        color: white;
-                                        text-decoration: none;
-                                    }
-                            </style>
-
-                        </button>
-
-                    </div>
-                </td>
-            </div>
-        </tr>
-}
-    </tbody>
-</table>
+                </div>
+        }
+</div>

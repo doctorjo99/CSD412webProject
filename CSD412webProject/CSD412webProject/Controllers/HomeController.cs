@@ -28,6 +28,13 @@ namespace CSD412webProject.Controllers
             return View();
         }
 
+        [Route("/Home/HandleError/{code:int}")]
+        public IActionResult HandleError(int code) 
+        {
+            ViewData["ErrorMessage"] = $"Error occured. The ErrorCode is {code}";
+            return View("~/Views/Shared/HandleError.cshtml");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
